@@ -1,5 +1,57 @@
 package Client;
 
 public class Client {
+    private String clientID; //Unique client ID, its auto generated
+    private String firstname, lastname, email; //Client attributes
+    private static int nextID = 1001; // static variable to keep track of the next ID to assign
+//default constructor
+public Client() {
+    clientID = "C" + nextID;
+    firstname = "";
+    lastname = "";
+    email = "";
+}
+//parameterized constructor
+public Client(String firstname, String lastname, String email) {
 
+    this.clientID = "C" + String.format("%03d", ++nextID
+    );
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+}
+//copy consctrutor (new id generated)
+public Client(Client other) {
+    this.clientID = "C" + String.format("%03d", ++nextID);
+    this.firstname = other.firstname;
+    this.lastname = other.lastname;
+    this.email = other.email;
+}
+//--getters--
+public String getClientID() {return clientID;}
+public String getFirstname() {return firstname;}
+public String getLastname() {return lastname;}
+public String getEmail() {return email;}
+//--setters--
+public void setFirstname(String firstname) {this.firstname = firstname;}
+public void setLastname(String lastname) {this.lastname = lastname;}
+public void setEmail(String email) {this.email = email;}
+//toString method
+@Override
+public String toString() {
+    return "Client ID: " + clientID + ", Name: " + firstname + " " + lastname + ", Email: " + email;
+}
+//equals method ; compares all fiedls except clientID
+//equals method; compares all fields except transportationId
+    ////Returns false if:
+// The passed object is null
+// The passed object is of a different class
+public boolean equals(Client other) {
+    if (other == null || getClass() != other.getClass()) {
+        return false;
+    }
+    return this.firstname.equals(other.firstname) &&
+           this.lastname.equals(other.lastname) &&
+           this.email.equals(other.email);
+}
 }
