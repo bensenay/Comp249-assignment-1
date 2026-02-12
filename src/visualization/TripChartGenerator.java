@@ -14,7 +14,14 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import travel.Trip;
+import Travel.Trip;
+import Travel.Transportation;
+import Travel.Accommodation;
+import Travel.Bus;
+import Travel.Flight;
+import Travel.Hotel;
+import Travel.Hostel;
+import Travel.Train;
 
 import java.io.File;
 import java.io.IOException;
