@@ -4,9 +4,12 @@ public class Client {
     private String clientID; //Unique client ID, its auto generated
     private String firstname, lastname, email; //Client attributes
     private static int nextID = 1001; // static variable to keep track of the next ID to assign
+//client id generator so constructors can call it all in one place
+private static String generateClientID() {return "C" + String.format("%03d", nextID++);} // Generate client ID and increment nextID
+ 
 //default constructor
 public Client() {
-    clientID = "C" + nextID;
+    clientID = generateClientID();
     firstname = "";
     lastname = "";
     email = "";
@@ -14,15 +17,14 @@ public Client() {
 //parameterized constructor
 public Client(String firstname, String lastname, String email) {
 
-    this.clientID = "C" + String.format("%03d", ++nextID
-    );
+    this.clientID =  generateClientID();
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
 }
 //copy consctrutor (new id generated)
 public Client(Client other) {
-    this.clientID = "C" + String.format("%03d", ++nextID);
+    this.clientID = generateClientID();
     this.firstname = other.firstname;
     this.lastname = other.lastname;
     this.email = other.email;
@@ -46,6 +48,7 @@ public String toString() {
     ////Returns false if:
 // The passed object is null
 // The passed object is of a different class
+
 public boolean equals(Client other) {
     if (other == null || getClass() != other.getClass()) {
         return false;

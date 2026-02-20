@@ -38,5 +38,11 @@ public class Bus extends Transportation {
     public String toString() {
         return super.toString() + ", Bus Company: " + busCompany + ", Number of Stops: " + numberOfStops;
     }
+    //copy method
+    @Override
+    public Transportation copy() {
+        return new Bus(this.busCompany, this.numberOfStops, this.companyName, this.departureCity, this.arrivalCity);
+    }
+    
 
 }

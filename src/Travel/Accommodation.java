@@ -12,7 +12,7 @@ public abstract class Accommodation {
     protected double pricePerNight;
 
     //helper to generate unique accommodation IDs
-    protected static String generateAccommodationId() {
+    private static String generateAccommodationId() {
         return "A" + (nextId++);
     }
 
@@ -51,7 +51,7 @@ public abstract class Accommodation {
     //toString method
     @Override
     public String toString() {
-        return "Accomodation{" +
+        return "Accommodation{" +
                 "accommodationId='" + accommodationId + '\'' +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
@@ -79,6 +79,9 @@ public abstract class Accommodation {
 
         return true;
     }
+    //copy method to be implemented by subclasses; returns a new instance of the same type with the same field values (except accommodationId)
+    public abstract Accommodation copy();
+
     
 
 

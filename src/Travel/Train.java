@@ -38,4 +38,10 @@ public class Train extends Transportation {
         return super.toString() + ", Train Type: " + trainType + ", Seat Class: " + seatClass;
     }
 
+    //copy method
+    @Override
+    public Transportation copy() {
+        return new Train(this.trainType, this.seatClass, this.companyName, this.departureCity, this.arrivalCity);
+    }
+    
 }

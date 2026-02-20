@@ -43,5 +43,11 @@ public class Hotel extends Accommodation{
         Hotel other = (Hotel) obj;
         return this.starRating == other.starRating;
     }
+        //copy method
+    @Override
+    public Accommodation copy() {
+        return new Hotel(this);
+    }
+    
 
 }

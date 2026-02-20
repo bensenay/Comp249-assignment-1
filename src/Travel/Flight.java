@@ -38,5 +38,10 @@ public class Flight extends Transportation {
     public String toString() {
         return super.toString() + ", Airline: " + airlineName + ", Luggage Allowance: " + luggageAllowanceKg + " kg";
     }
-
+    //copy method
+    @Override
+    public Transportation copy() {
+        return new Flight(this.airlineName, this.luggageAllowanceKg, this.companyName, this.departureCity, this.arrivalCity);
+    }
+    
 }

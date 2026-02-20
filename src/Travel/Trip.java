@@ -12,12 +12,12 @@ public class Trip {
     private int durationInDays; 
     private double basePrice;
     
-    private Client Client;
+    private Client client;
     private Transportation transportation;
     private Accommodation accommodation;
 
     //helper to generate ids
-    public String generatetripID() {
+    private static String generatetripID() {
         return "T" +nextID++;
     }
     //default constructor:
@@ -26,7 +26,7 @@ public class Trip {
         this.destination = "Unknown";
         this.durationInDays = 0;
         this.basePrice = 0.0;
-        this.Client = null;
+        this.client = null;
         this.transportation = null;
         this.accommodation = null;
     }
@@ -36,18 +36,18 @@ public class Trip {
         this.destination = destination;
         this.durationInDays = durationInDays;
         this.basePrice = basePrice;
-        this.Client = Client;
+        this.client = Client;
         this.transportation = transportation;
         this.accommodation = accommodation;
     }
     //copy constructor: 
     public Trip(Trip other) {
-        this.tripID = other.tripID;
+        this.tripID = generatetripID(); //new unique id for the copy    
         this.destination = other.destination;
         this.durationInDays = other.durationInDays;
         this.basePrice = other.basePrice;
         
-        this.Client = other.Client;
+        this.client = other.client;
         this.transportation = other.transportation;
         this.accommodation = other.accommodation;
     }
@@ -56,17 +56,17 @@ public class Trip {
     public String getDestination() {return destination;}
     public int getDurationInDays() {return durationInDays;}
     public double getBasePrice() {return basePrice;}
-    public Client getClient() {return Client;}
+    public Client getClient() {return client;}
     public Transportation getTransportation() {return transportation;}
-    public Accommodation getAccomodation() {return accommodation; }
+    public Accommodation getAccommodation() {return accommodation; }
     
     //setters
     public void setDestination(String destination) {this.destination = destination;}
     public void setDurationInDays(int durationInDays) {this.durationInDays = durationInDays;}
     public void setBasePrice(double basePrice) {this.basePrice = basePrice;}
-    public void setClient(Client Client) { this.Client = Client;}
+    public void setClient(Client Client) { this.client = Client;}
     public void setTransportation(Transportation transportation) {this.transportation = transportation;}
-    public void setAccomodation(Accommodation accommodation) {this.accommodation = accommodation;}
+    public void setAccommodation(Accommodation accommodation) {this.accommodation = accommodation;}
     
     //Trip total cost uses polymorphism via calculateCost() in transport/accommodation
     public double calculateTotalCost() {
@@ -85,7 +85,7 @@ public class Trip {
                 ", destination='" + destination + '\'' +
                 ", durationInDays=" + durationInDays +
                 ", basePrice=" + basePrice +
-                ", client=" + (Client == null ? "null" : Client.toString()) +
+                ", client=" + (client == null ? "null" : client.toString()) +
                 ", transportation=" + (transportation == null ? "null" : transportation.toString()) +
                 ", accommodation=" + (accommodation == null ? "null" : accommodation.toString()) +
                 ", totalCost=" + calculateTotalCost() +
@@ -108,9 +108,9 @@ public class Trip {
             if (other.destination != null) return false;
         } else if (!destination.equals(other.destination)) return false;
 
-        if (Client == null) {
-            if (other.Client != null) return false;
-        } else if (!Client.equals(other.Client)) return false;
+        if (client == null) {
+            if (other.client != null) return false;
+        } else if (!client.equals(other.client)) return false;
 
         if (transportation == null) {
             if (other.transportation != null) return false;

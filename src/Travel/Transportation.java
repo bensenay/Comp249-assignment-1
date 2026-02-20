@@ -5,23 +5,28 @@ public abstract class Transportation {
     protected String companyName, departureCity, arrivalCity;
     protected static int nextId = 3001;
 
+    //helper to generate unique transportation IDs
+    private static String generateTransportationId() {
+        return "TR" + (nextId++);
+    }
+
     //constructors; default, parameterized and copy
     public Transportation() {
-        this.transportationId = "T" + nextId++;
+        this.transportationId = generateTransportationId();
         this.companyName = "";
         this.departureCity = "";
         this.arrivalCity = "";
     }
     //parameterized constructor
     public Transportation(String companyName, String departureCity, String arrivalCity) {
-        this.transportationId = "T" + nextId++;
+        this.transportationId = generateTransportationId();
         this.companyName = companyName;
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
     }
     //copy constructor (new id generated)
     public Transportation(Transportation other) {
-        this.transportationId = "TR" + nextId++;
+        this.transportationId = generateTransportationId();
         this.companyName = other.companyName;
         this.departureCity = other.departureCity;
         this.arrivalCity = other.arrivalCity;
@@ -55,6 +60,11 @@ public abstract class Transportation {
                this.arrivalCity.equals(other.arrivalCity);
     }
     //public abstract double calculateCost(int numberOfDays); (polymorphic method requirement)
+
+    //abstract copy method to be implemented by subclasses; returns a new instance of the same type with the same field values (except transportationId)
+    public abstract Transportation copy();
+
+    
     public abstract double calculateCost(int numberOfDays);
     
 

@@ -14,14 +14,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+
 import Travel.Trip;
-import Travel.Transportation;
-import Travel.Accommodation;
-import Travel.Bus;
-import Travel.Flight;
-import Travel.Hotel;
-import Travel.Hostel;
-import Travel.Train;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,7 +85,7 @@ public class TripChartGenerator {
      * @param count number of valid elements in the array
      * @throws IOException if PNG file cannot be written
      */
-    public static void generateCostBarChart(Transportation[] trips, int count) throws IOException {
+    public static void generateCostBarChart(Trip[] trips, int count) throws IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < count; i++) {
             dataset.addValue(trips[i].calculateTotalCost(), "Total Cost", trips[i].getTripId());
@@ -115,7 +109,7 @@ public class TripChartGenerator {
      * @param count number of valid elements in the array
      * @throws IOException if PNG file cannot be written
      */
-    public static void generateDestinationPieChart(Transportation[] trips, int count) throws IOException {
+    public static void generateDestinationPieChart(Trip[] trips, int count) throws IOException {
         
     	DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
 
@@ -148,7 +142,7 @@ public class TripChartGenerator {
      * @param count number of valid elements in the array
      * @throws IOException if PNG file cannot be written
      */
-    public static void generateDurationLineChart(Transportation[] trips, int count) throws IOException {
+    public static void generateDurationLineChart(Trip[] trips, int count) throws IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < count; i++) {
             dataset.addValue(trips[i].getDurationInDays(), "Duration (days)", trips[i].getTripId());

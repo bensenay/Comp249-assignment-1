@@ -40,6 +40,11 @@ public class Hostel extends Accommodation {
         Hostel other = (Hostel) obj;
         return this.numberOfBedsPerRoom == other.numberOfBedsPerRoom;
     }
+    //copy method
+    @Override
+    public Accommodation copy() {
+        return new Hostel(this);
+    }
     
 
 }
