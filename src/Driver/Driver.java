@@ -102,16 +102,16 @@ public class Driver {
             // 2) CREATE TRANSPORTATION (2 of each type)
             // ==========================================
             // Flights (2)
-            Transportation f1 = new Flight("Air Canada", 35.0, "Air Canada", "Montreal", "Paris");
-            Transportation f2 = new Flight("Air France", 40.0, "Air France", "Paris", "Rome");
+            Transportation f1 = new Flight("Air Canada", 35.0, "Air Canada", "Montreal", "Paris",1200);
+            Transportation f2 = new Flight("Air France", 40.0, "Air France", "Paris", "Rome",1500);
 
              // Trains (2)
-            Transportation tr1 = new Train("TGV", "Economy", "SNCF", "Paris", "Lyon");
-            Transportation tr2 = new Train("Frecciarossa", "Business", "Trenitalia", "Rome", "Milan");
+            Transportation tr1 = new Train("TGV", "Economy", "SNCF", "Paris", "Lyon",150);
+            Transportation tr2 = new Train("Frecciarossa", "Business", "Trenitalia", "Rome", "Milan",100);
 
             // Buses (2)
-            Transportation b1 = new Bus("Orleans Express", 2, "Orleans Express", "Montreal", "Quebec");
-            Transportation b2 = new Bus("FlixBus", 1, "FlixBus", "Lyon", "Geneva");
+            Transportation b1 = new Bus("Orleans Express", 2, "Orleans Express", "Montreal", "Quebec",100);
+            Transportation b2 = new Bus("FlixBus", 1, "FlixBus", "Lyon", "Geneva",300);
 
             transportations[TransportationCount++] = f1;
             transportations[TransportationCount++] = f2;
@@ -538,13 +538,13 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                     Transportation newTransport = null;
                                     switch (type.toLowerCase()) {
                                         case "flight":
-                                            newTransport = new Flight("Unknown Airline", 20.0, "Unknown Company", "Unknown Departure City", "Unknown Arrival City");
+                                            newTransport = new Flight("Unknown Airline", 20.0, "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 500.0);
                                             break;
                                         case "train":
-                                            newTransport = new Train("Unknown Train Type", "Unknown Seat Class", "Unknown Company", "Unknown Departure City", "Unknown Arrival City");
+                                            newTransport = new Train("Unknown Train Type", "Unknown Seat Class", "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 100.0);
                                             break;
                                         case "bus":
-                                            newTransport = new Bus("Unknown Bus Company", 10, "Unknown Company", "Unknown Departure City", "Unknown Arrival City");
+                                            newTransport = new Bus("Unknown Bus Company", 10, "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 50.0);
                                             break;
                                         default:
                                             System.out.println("Invalid transportation type. Please try again.");

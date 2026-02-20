@@ -50,7 +50,7 @@ public String toString() {
 // The passed object is of a different class
 @Override
 public boolean equals(Object obj) {
-    if this == obj) return true; // Check if  they are the same object
+    if (this == obj) return true; // Check if  they are the same object
     if (obj == null || getClass() != obj.getClass()) {
         return false;
     }
