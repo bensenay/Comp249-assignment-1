@@ -20,7 +20,8 @@ public class Hostel extends Accommodation {
     //calculate cost method
     @Override
     public double calculateCost(int numberOfDays) {
-        return pricePerNight * numberOfDays;
+        double base = pricePerNight * numberOfDays;
+        return base * 0.85; //15 discount
     }
     //getter and setter for numberOfBedsPerRoom
     public int getNumberOfBedsPerRoom() {return numberOfBedsPerRoom;}
@@ -45,6 +46,6 @@ public class Hostel extends Accommodation {
     public Accommodation copy() {
         return new Hostel(this);
     }
-    
+
 
 }

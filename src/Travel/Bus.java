@@ -3,17 +3,22 @@ package Travel;
 public class Bus extends Transportation {
     private String busCompany;
     private int numberOfStops;
+    private double baseFare;
     //default constructor
     public Bus() {
         super();
         this.busCompany = "Unknown";
         this.numberOfStops = 0;
+        this.baseFare = 0.0;
     }
     //parameterized constructor
-    public Bus(String busCompany, int numberOfStops, String companyName, String departureCity, String arrivalCity) {
+    public Bus(String busCompany, int numberOfStops, String companyName, String departureCity, String arrivalCity, double BaseFare) {
         super(companyName, departureCity, arrivalCity);
         this.busCompany = busCompany;
         this.numberOfStops = numberOfStops;
+        this.baseFare = BaseFare;
+
+        
     }
     @Override
     public double calculateCost(int numberOfDays) {
@@ -41,8 +46,8 @@ public class Bus extends Transportation {
     //copy method
     @Override
     public Transportation copy() {
-        return new Bus(this.busCompany, this.numberOfStops, this.companyName, this.departureCity, this.arrivalCity);
+        return new Bus(this.busCompany, this.numberOfStops, this.companyName, this.departureCity, this.arrivalCity, this.baseFare);
     }
-    
+
 
 }

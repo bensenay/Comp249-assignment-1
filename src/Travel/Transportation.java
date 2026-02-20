@@ -51,20 +51,21 @@ public abstract class Transportation {
     // The passed object is null
     // The passed object is of a different class
     // The companyName, departureCity, or arrivalCity fields do not match
-    public boolean equals(Transportation other) {
-        if (other == null || getClass() != other.getClass()) {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+        Transportation other = (Transportation) obj;
         return this.companyName.equals(other.companyName) &&
                this.departureCity.equals(other.departureCity) &&
                this.arrivalCity.equals(other.arrivalCity);
     }
-    //public abstract double calculateCost(int numberOfDays); (polymorphic method requirement)
-
+    
     //abstract copy method to be implemented by subclasses; returns a new instance of the same type with the same field values (except transportationId)
     public abstract Transportation copy();
 
-    
+    //public abstract double calculateCost(int numberOfDays); (polymorphic method requirement)
     public abstract double calculateCost(int numberOfDays);
     
 

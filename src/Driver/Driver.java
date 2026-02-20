@@ -72,94 +72,151 @@ public class Driver {
             Accommodation[] accommodations) {
             System.out.println("\n=== Running Predefined Scenario ===");
 
-            // Safety check (so it doesn't crash if arrays are full)
-            if (ClientCount + 2 > MAX_CLIENTS ||
-            TransportationCount + 3 > MAX_TRANSPORTATIONS ||
-            AccommodationCount + 2 > MAX_ACCOMMODATIONS ||
-            TripCount + 2 > MAX_TRIPS) {
+            // Requirement sizes
+            final int clientsNeeded = 3;
+            final int tripsNeeded = 3;
+            final int transportNeeded = 6; // 2 flight + 2 train + 2 bus
+            final int accomNeeded = 4;     // 2 hotel + 2 hostel
+
+            // Capacity check
+            if (ClientCount + clientsNeeded > MAX_CLIENTS ||
+            TripCount + tripsNeeded > MAX_TRIPS ||
+            TransportationCount + transportNeeded > MAX_TRANSPORTATIONS ||
+            AccommodationCount + accomNeeded > MAX_ACCOMMODATIONS) {
             System.out.println("Not enough space in arrays to run predefined scenario.");
             return;
             }
 
-            // 1) Create clients
+            // =========================
+            // 1) CREATE CLIENTS (3)
+            // =========================
             Client c1 = new Client("Benjamin", "Senay", "benjamin@example.com");
             Client c2 = new Client("Alex", "Martin", "alex@example.com");
+            Client c3 = new Client("Sara", "Lopez", "sara@example.com");
 
             clients[ClientCount++] = c1;
             clients[ClientCount++] = c2;
+            clients[ClientCount++] = c3;
 
-            // 2) Create transportation (polymorphism)
-            Transportation t1 = new Flight("Air Canada", 23.0, "Air Canada", "Montreal", "Paris");
-            Transportation t2 = new Train("TGV", "Economy", "SNCF", "Paris", "Lyon");
-            Transportation t3 = new Bus("Orleans Express", 2, "Orleans Express", "Montreal", "Quebec");
+            // ==========================================
+            // 2) CREATE TRANSPORTATION (2 of each type)
+            // ==========================================
+            // Flights (2)
+            Transportation f1 = new Flight("Air Canada", 35.0, "Air Canada", "Montreal", "Paris");
+            Transportation f2 = new Flight("Air France", 40.0, "Air France", "Paris", "Rome");
 
-            transportations[TransportationCount++] = t1;
-            transportations[TransportationCount++] = t2;
-            transportations[TransportationCount++] = t3;
+             // Trains (2)
+            Transportation tr1 = new Train("TGV", "Economy", "SNCF", "Paris", "Lyon");
+            Transportation tr2 = new Train("Frecciarossa", "Business", "Trenitalia", "Rome", "Milan");
 
-            // 3) Create accommodations (polymorphism)
-            Accommodation a1 = new Hotel("Hilton Paris", "Paris", 220.0, 4);
-            Accommodation a2 = new Hostel("Youth Hostel Lyon", "Lyon", 55.0, 6);
+            // Buses (2)
+            Transportation b1 = new Bus("Orleans Express", 2, "Orleans Express", "Montreal", "Quebec");
+            Transportation b2 = new Bus("FlixBus", 1, "FlixBus", "Lyon", "Geneva");
 
-            accommodations[AccommodationCount++] = a1;
-            accommodations[AccommodationCount++] = a2;
+            transportations[TransportationCount++] = f1;
+            transportations[TransportationCount++] = f2;
+            transportations[TransportationCount++] = tr1;
+            transportations[TransportationCount++] = tr2;
+            transportations[TransportationCount++] = b1;
+            transportations[TransportationCount++] = b2;
 
-            // 4) Create trips using combinations
-            Trip trip1 = new Trip("Paris", 5, 500.0, c1, t1, a1); // flight + hotel
-            Trip trip2 = new Trip("Lyon", 3, 250.0, c2, t2, a2);  // train + hostel
+            // ==========================================
+            // 3) CREATE ACCOMMODATIONS (2 of each type)
+            // ==========================================
+            // Hotels (2)
+            Accommodation h1 = new Hotel("Hilton Paris", "Paris", 220.0, 4);
+            Accommodation h2 = new Hotel("Rome Grand Hotel", "Rome", 260.0, 5);
 
-            trips[TripCount++] = trip1;
-            trips[TripCount++] = trip2;
+            // Hostels (2)
+            Accommodation hs1 = new Hostel("Youth Hostel Lyon", "Lyon", 55.0, 6);
+            Accommodation hs2 = new Hostel("Backpackers Milan", "Milan", 65.0, 8);
 
-            // 5) Show what was created
+            accommodations[AccommodationCount++] = h1;
+            accommodations[AccommodationCount++] = h2;
+            accommodations[AccommodationCount++] = hs1;
+            accommodations[AccommodationCount++] = hs2;
+
+            // =========================
+            // 4) CREATE TRIPS (3)
+            // =========================
+            // Mix different clients, transportation, and accommodations
+            Trip t1 = new Trip("Paris", 5, 500.0, c1, f1, h1);   // flight + hotel
+            Trip t2 = new Trip("Lyon", 3, 250.0, c2, tr1, hs1);  // train + hostel
+            Trip t3 = new Trip("Rome", 6, 650.0, c3, f2, h2);    // flight + hotel
+
+            trips[TripCount++] = t1;
+            trips[TripCount++] = t2;
+            trips[TripCount++] = t3;
+
+            // =========================
+            // 5) PRINT EVERYTHING
+            // =========================
             System.out.println("\n--- Clients Created ---");
             for (int i = 0; i < ClientCount; i++) {
-                System.out.println(clients[i]);
+                if (clients[i] != null) {
+                    System.out.println(clients[i]);
+                }
             }
 
             System.out.println("\n--- Transportation Created ---");
-            for (int i = 0; i < TransportationCount; i++) {
-                System.out.println(transportations[i]);
+                for (int i = 0; i < TransportationCount; i++) {
+                    if (transportations[i] != null) {
+                        System.out.println(transportations[i]);
+                }
             }
 
             System.out.println("\n--- Accommodations Created ---");
-            for (int i = 0; i < AccommodationCount; i++) {
-                System.out.println(accommodations[i]);
+                for (int i = 0; i < AccommodationCount; i++) {
+                    if (accommodations[i] != null) {
+                        System.out.println(accommodations[i]);
+                }
             }
 
             System.out.println("\n--- Trips Created ---");
-            for (int i = 0; i < TripCount; i++) {
-                System.out.println(trips[i]);
-                System.out.println("Total cost: $" + trips[i].calculateTotalCost());
-            }
+                for (int i = 0; i < TripCount; i++) {
+                    if (trips[i] != null) {
+                        System.out.println(trips[i]);
+                        System.out.println("Total cost: $" + trips[i].calculateTotalCost());
+                }
+            }   
 
-            // 6) Show most expensive trip
-            if (TripCount > 0) {
-                Trip mostExpensive = trips[0];
-                for (int i = 1; i < TripCount; i++) {
-                    if (trips[i].calculateTotalCost() > mostExpensive.calculateTotalCost()) {mostExpensive = trips[i];}
-            }
-            System.out.println("\nMost expensive trip is:");
-            System.out.println(mostExpensive);
-            System.out.println("Total cost: $" + mostExpensive.calculateTotalCost());
-        }
+// =========================
+// 6) Most expensive trip
+// =========================
+if (TripCount > 0) {
+Trip mostExpensive = trips[0];
+for (int i = 1; i < TripCount; i++) {
+if (trips[i] != null &&
+trips[i].calculateTotalCost() > mostExpensive.calculateTotalCost()) {
+mostExpensive = trips[i];
+}
+}
 
-            // 7) Optional: generate charts (if JFreeChart is set up)
-            try {
-            java.io.File outDir = new java.io.File("output");
-            if (!outDir.exists()) outDir.mkdirs();
+System.out.println("\nMost expensive trip:");
+System.out.println(mostExpensive);
+System.out.println("Total cost: $" + mostExpensive.calculateTotalCost());
+}
 
-            TripChartGenerator.generateCostBarChart(trips, TripCount);
-            TripChartGenerator.generateDestinationPieChart(trips, TripCount);
-            TripChartGenerator.generateDurationLineChart(trips, TripCount);
+// =========================
+// 7) Generate charts (optional)
+// =========================
+try {
+java.io.File outDir = new java.io.File("output");
+if (!outDir.exists()) {
+outDir.mkdirs();
+}
 
-            System.out.println("\nCharts generated in /output folder.");
-        } catch (Exception e) {
-            System.out.println("\nCharts not generated (library/path issue): " + e.getMessage());
-        }
+TripChartGenerator.generateCostBarChart(trips, TripCount);
+TripChartGenerator.generateDestinationPieChart(trips, TripCount);
+TripChartGenerator.generateDurationLineChart(trips, TripCount);
 
-        System.out.println("\n=== Predefined Scenario Complete ===\n");
-    }
+System.out.println("\nCharts generated in /output folder.");
+} catch (Exception e) {
+System.out.println("\nCharts not generated (library/path issue): " + e.getMessage());
+}
+
+System.out.println("\n=== Predefined Scenario Complete ===\n");
+}
 
         //The program must also include a method that creates and returns a deep copy of an array of transportation objects:
         //use the copy method in subclasses
@@ -685,15 +742,3 @@ public class Driver {
     }
 }
 }
-
-
-            
-
-
-
-
-
-
-
-
-

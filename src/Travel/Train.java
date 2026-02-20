@@ -3,20 +3,24 @@ package Travel;
 public class Train extends Transportation {
     private String trainType;
     private String seatClass;
+    private double fare;
     //default
     public Train() {
         this.trainType = "Unknown";
         this.seatClass = "Unknown";
+        this.fare = 0.0;
     }
     //parameterized
-    public Train(String trainType, String seatClass, String companyName, String departureCity, String arrivalCity) {
+    public Train(String trainType, String seatClass, String companyName, String departureCity, String arrivalCity, double Fare) {
         super(companyName, departureCity, arrivalCity);
         this.trainType = trainType;
         this.seatClass = seatClass;
+        this.fare = Fare;
     }
     @Override
     public double calculateCost(int numberOfDays) {
-        return 50.0 * numberOfDays; // Example cost calculation
+        double multiplier = seatClass.equalsIgnoreCase("Business") ? 1.25 : 1.0;
+        return fare * multiplier;
     }
     //equals method; compares all fields except transportationId,
     // returns false if:
@@ -41,7 +45,7 @@ public class Train extends Transportation {
     //copy method
     @Override
     public Transportation copy() {
-        return new Train(this.trainType, this.seatClass, this.companyName, this.departureCity, this.arrivalCity);
+        return new Train(this.trainType, this.seatClass, this.companyName, this.departureCity, this.arrivalCity, this.fare);
     }
-    
+
 }

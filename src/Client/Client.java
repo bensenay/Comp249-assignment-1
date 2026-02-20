@@ -48,13 +48,16 @@ public String toString() {
     ////Returns false if:
 // The passed object is null
 // The passed object is of a different class
-
-public boolean equals(Client other) {
-    if (other == null || getClass() != other.getClass()) {
+@Override
+public boolean equals(Object obj) {
+    if this == obj) return true; // Check if  they are the same object
+    if (obj == null || getClass() != obj.getClass()) {
         return false;
     }
-    return this.firstname.equals(other.firstname) &&
+    Client other = (Client) obj;
+    return this.clientID.equals(other.clientID) &&
+           this.firstname.equals(other.firstname) &&
            this.lastname.equals(other.lastname) &&
            this.email.equals(other.email);
-}
+    }
 }

@@ -3,21 +3,25 @@ package Travel;
 public class Flight extends Transportation {
     private String airlineName; 
     private double luggageAllowanceKg;
+    private double ticketPrice; 
     //default constructor
     public Flight() {
         
         this.airlineName = "Unknown Airline";
         this.luggageAllowanceKg = 20.0; // Default luggage allowance
+        this.ticketPrice = 200.0; // Default ticket price
     }
     //parameterized constructor
-    public Flight(String airlineName, double luggageAllowanceKg,String companyName, String departureCity, String arrivalCity) {
+    public Flight(String airlineName, double luggageAllowanceKg,String companyName, String departureCity, String arrivalCity, double TicketPrice) {
         super(companyName, departureCity,arrivalCity);
         this.airlineName = airlineName;
         this.luggageAllowanceKg = luggageAllowanceKg;
+        this.ticketPrice = TicketPrice; // Base ticket price, can be modified as needed
     }
     @Override
-    public double calculateCost(int numberOfDays){
-        return 200.0 * numberOfDays; // Example cost calculation
+    public double calculateCost(int numberOfDays) {
+        double baggageFee = (luggageAllowanceKg > 23) ? 40.0 : 0.0;
+        return ticketPrice + baggageFee;
     }
     //equals method; compares all fields except transportationId, 
     // returns false if:
@@ -41,7 +45,7 @@ public class Flight extends Transportation {
     //copy method
     @Override
     public Transportation copy() {
-        return new Flight(this.airlineName, this.luggageAllowanceKg, this.companyName, this.departureCity, this.arrivalCity);
+        return new Flight(this.airlineName, this.luggageAllowanceKg, this.companyName, this.departureCity, this.arrivalCity, this.ticketPrice);
     }
-    
+
 }

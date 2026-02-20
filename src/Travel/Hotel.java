@@ -23,7 +23,8 @@ public class Hotel extends Accommodation{
     //calculate cost method
     @Override
     public double calculateCost(int numberOfDays) {
-        return pricePerNight * numberOfDays;
+        double base = pricePerNight * numberOfDays;
+        return base * 1.10;  //10% surcahrge)
     }
     //getter and setter for starRating
     public int getStarRating() {return starRating;}
@@ -48,6 +49,6 @@ public class Hotel extends Accommodation{
     public Accommodation copy() {
         return new Hotel(this);
     }
-    
+
 
 }
