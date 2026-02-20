@@ -40,6 +40,7 @@ public class Driver {
         System.out.println("Please choose an option:");
         System.out.println("1. Run predefined scenario");
         System.out.println("2. Use menu-driven interface");
+        System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         
         while (true) {
@@ -180,43 +181,42 @@ public class Driver {
                 }
             }   
 
-// =========================
-// 6) Most expensive trip
-// =========================
-if (TripCount > 0) {
-Trip mostExpensive = trips[0];
-for (int i = 1; i < TripCount; i++) {
-if (trips[i] != null &&
-trips[i].calculateTotalCost() > mostExpensive.calculateTotalCost()) {
-mostExpensive = trips[i];
-}
-}
+            // =========================
+            // 6) Most expensive trip
+            // =========================
+            if (TripCount > 0) {
+                Trip mostExpensive = trips[0];
+                for (int i = 1; i < TripCount; i++) {
+                    if (trips[i] != null &&
+                            trips[i].calculateTotalCost() > mostExpensive.calculateTotalCost()) {
+                            mostExpensive = trips[i];
+                        }
+            }
 
-System.out.println("\nMost expensive trip:");
-System.out.println(mostExpensive);
-System.out.println("Total cost: $" + mostExpensive.calculateTotalCost());
-}
+            System.out.println("\nMost expensive trip:");
+            System.out.println(mostExpensive);
+            System.out.println("Total cost: $" + mostExpensive.calculateTotalCost());
+            }
 
-// =========================
-// 7) Generate charts (optional)
-// =========================
-try {
-java.io.File outDir = new java.io.File("output");
-if (!outDir.exists()) {
-outDir.mkdirs();
-}
+            // =========================
+            // 7) Generate charts (optional)
+            // =========================
+            try {
+            java.io.File outDir = new java.io.File("output");
+            if (!outDir.exists()) {
+                outDir.mkdirs();
+            }
 
-TripChartGenerator.generateCostBarChart(trips, TripCount);
-TripChartGenerator.generateDestinationPieChart(trips, TripCount);
-TripChartGenerator.generateDurationLineChart(trips, TripCount);
+            TripChartGenerator.generateCostBarChart(trips, TripCount);
+            TripChartGenerator.generateDestinationPieChart(trips, TripCount);
+            TripChartGenerator.generateDurationLineChart(trips, TripCount);
 
-System.out.println("\nCharts generated in /output folder.");
-} catch (Exception e) {
-System.out.println("\nCharts not generated (library/path issue): " + e.getMessage());
-}
-
-System.out.println("\n=== Predefined Scenario Complete ===\n");
-}
+            System.out.println("\nCharts generated in /output folder.");
+            } catch (Exception e) {
+            System.out.println("\nCharts not generated (library/path issue): " + e.getMessage());
+                }
+            System.out.println("\n=== Predefined Scenario Complete ===\n");
+        }
 
         //The program must also include a method that creates and returns a deep copy of an array of transportation objects:
         //use the copy method in subclasses
@@ -230,9 +230,9 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
             return copy;
         }       
         
-
         //----------------------------------------------
         //run menu
+        //----------------------------------------------
         public static void runMenu(Scanner s, Client[] clients, Trip[] trips, Transportation[] transports, Accommodation[] accommodations) {
             Scanner scanner = s;
             //reset our vars
@@ -279,7 +279,6 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                     System.out.println("Enter client's email: ");
                                     String email = scanner.next();
                                     Client newClient = new Client(firstName, lastName, email);
-                                
                                     clients[clientCount++] = newClient;
                                     //check to see if it worked
                                     System.out.println("Added client: " + clients[clientCount-1]);
@@ -296,66 +295,82 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                 System.out.println("Enter client ID to edit: ");
                                 String clientID_edit = scanner.next();
                                 //check if the client id is in the client database
-                                boolean found = false;  //set bool value to false to say it isnt found
-                                for (int i = 0; i < clientCount; i++) { //set a for loop to iterate through each client id
-                                    if (clients[i].getClientID().equals(clientID_edit)) { //if it is found
-                                        found = true; //change bool value to true
-                                        System.out.println("Client found: " + clients[i]);
-                                        //give user the option of wich attribute to edit
-                                        System.out.println("Client found: " + clients[i]);
-                                        System.out.println("Which attribute would you like to edit?");
-                                        System.out.println("1) First Name");
-                                        System.out.println("2) Last Name");
-                                        System.out.println("3) Email");
-                                        int editChoice = scanner.nextInt();
-                                        switch (editChoice) {
-                                            case 1:
-                                                System.out.println("Enter new first name: ");
-                                                String newFirstName = scanner.next();
-                                                clients[i].setFirstname(newFirstName);
-                                                System.out.println("Client updated: " + clients[i]);
-                                                break;
-                                            case 2:
-                                                System.out.println("Enter new last name: ");
-                                                String newLastName = scanner.next();
-                                                clients[i].setLastname(newLastName);
-                                                System.out.println("Client updated: " + clients[i]);
-                                                break;
-                                            case 3:
-                                                System.out.println("Enter new email: ");
-                                                String newEmail = scanner.next();
-                                                clients[i].setEmail(newEmail);
-                                                System.out.println("Client updated: " + clients[i]);
-                                                break;
-                                            default:
-                                                System.out.println("Invalid choice. No changes made.");
+                                boolean found = false; //set bool value to false to say it isnt found
+                                while (!found) {
+                                    for (int i = 0; i < clientCount; i++) { //set a for loop to iterate through each client id
+                                        if (clients[i].getClientID().equals(clientID_edit)) { //if it is found
+                                            found = true; //change bool value to true
+                                            System.out.println("Client found: " + clients[i]);
+                                            //give user the option of wich attribute to edit
+                                            System.out.println("Which attribute would you like to edit?");
+                                            System.out.println("1) First Name");
+                                            System.out.println("2) Last Name");
+                                            System.out.println("3) Email");
+                                            int editChoice = scanner.nextInt();
+                                            switch (editChoice) {
+                                                case 1:
+                                                    System.out.println("Enter new first name: ");
+                                                    String newFirstName = scanner.next();
+                                                    clients[i].setFirstname(newFirstName);
+                                                    System.out.println("Client updated: " + clients[i]);
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Enter new last name: ");
+                                                    String newLastName = scanner.next();
+                                                    clients[i].setLastname(newLastName);
+                                                    System.out.println("Client updated: " + clients[i]);
+                                                    break;
+                                                case 3:
+                                                    System.out.println("Enter new email: ");
+                                                    String newEmail = scanner.next();
+                                                    clients[i].setEmail(newEmail);
+                                                    System.out.println("Client updated: " + clients[i]);
+                                                    break;
+                                                default:
+                                                    System.out.println("Invalid choice. No changes made.");
+                                            }
+                                            break; // exit loop after finding client
                                         }
-                                        break; // exit loop after finding client
+                                    }
+                                    if (!found) {
+                                        System.out.println("Client ID not found. Please enter a valid Client ID: "); //if id is not found, prompt user to re-enter
+                                        clientID_edit = scanner.next(); //get new id from user and try again
                                     }
                                 }
-                                
+                            break;   
                             case 3:
                                 //delete client
                                 //in this case, we will delete client by setting the client object to null 
                                 //shifting all clients after it one position to the left 
                                 // then decrementing clientCount
-                                System.out.println("Enter client ID to delete: ");
-                                String clientID_delete = scanner.next();
+                                
                                 boolean found_delete = false;  //set bool value to false to say it isnt found
-                                for (int i = 0; i < clientCount; i++) { //set a for loop to iterate through each client id
-                                    if (clients[i].getClientID().equals(clientID_delete)) { //if it is found
+                                //start while loop so user can retry until he enterse a valid client id
+                                while (!found_delete) {
+                                    System.out.println("Enter client ID to delete: ");
+                                    String clientID_delete = scanner.next();
+
+                                    //set a for loop to iterate through each client id
+                                    for (int i = 0; i < clientCount; i++) {
+                                        if (clients[i].getClientID().equals(clientID_delete)) { //if it is found
                                         found_delete = true; //change bool value to true
+
                                         //delete client by shifting all clients after it one position to the left and decrementing clientCount
-                                        for (int j = i; j < clientCount - 1; j++) {
-                                            clients[j] = clients[j + 1];
+                                        for (int j = i; j < ClientCount - 1; j++) {
+                                        clients[j] = clients[j + 1];
                                         }
+
                                         clients[--clientCount] = null; //set last client to null and decrement count
                                         System.out.println("Client deleted successfully.");
                                         break; // exit loop after deleting client
-                                    }else {
-                                        System.out.println("Client ID not found. Please try again.");// if client id not found, user can retry
                                     }
                                 }
+                                //if client id not found, user can retry
+                                if (!found_delete) {
+                                    System.out.println("Client ID not found. Please try again.");
+                                }
+                            }
+                            break;                    
                                 //delete explanation:
                                 //we first ask the user for the client ID they wish to delete. 
                                 // We then search through the clients array to find a client with a matching ID. 
@@ -395,133 +410,290 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                         }
                         break;
                         
-        //---------------------------case 2: trip management----------------------------
+                    //---------------------------case 2: trip management----------------------------
                     case 2:
-                        System.out.println("\n--- Trip Management ---");
-                        System.out.println("1) Add Trip");
-                        System.out.println("2) Edit Trip");
-                        System.out.println("3) Delete Trip");
-                        System.out.println("4) List All Trips");
-                        System.out.print("Enter your choice: ");
-                        int tripChoice = scanner.nextInt();
-                        switch (tripChoice) {
-                            case 1:
-                                //add trip; using package trip, using setters to set attributes
-                                //first check if trip list is full:
-                                if (tripCount >= MAX_TRIPS) {
-                                    System.out.println("Trip list is full. Cannot add more trips.");
-                                    break;
-                                }else {
-                                //ask user for destination, duration in days, base price, and create a new trip object with those attributes, then add to trips array and increment tripCount
-                                    System.out.println("Enter trip destination: ");
-                                    String destination = scanner.next();
-                                    System.out.println("Enter trip duration in days: ");
-                                    int durationInDays = scanner.nextInt();
-                                    System.out.println("Enter trip base price: ");
-                                    double basePrice = scanner.nextDouble();
-                                    Trip newTrip = new Trip(destination, durationInDays, basePrice, null, null, null);
-                                
-                                    trips[tripCount++] = newTrip;
-                                    //check to see if it worked
-                                    System.out.println("Added trip: " + trips[tripCount]);
-                                }
-                                break;
-                            case 2:
-                                //edit trip; (same method used for client editing, 
-                                // but with trip attributes: destination, duration in days, base price)
-                                //search for trip id
-                                //if found ask user which attribute to edit and use setters to update the attribute
-                                 System.out.println("Enter trip ID to edit: ");
-                                String tripID_edit = scanner.next();
-                                //check if the trip id is in the trip database
-                                boolean found_trip = false;  //set bool value to false to say it isnt found
-                                for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
-                                    if (trips[i].getTripId().equals(tripID_edit)) { //if it is found
-                                        found_trip = true; //change bool value to true
-                                        //give user the option of wich attribute to edit
-                                        System.out.println("Trip found: " + trips[i]);
-                                        System.out.println("Which attribute would you like to edit?");
-                                        System.out.println("1) Destination");
-                                        System.out.println("2) Duration in Days");
-                                        System.out.println("3) Base Price");
-                                        int editChoice = scanner.nextInt();
-                                        switch (editChoice) {
-                                            case 1:
-                                                System.out.println("Enter new destination: ");
-                                                String newDestination = scanner.next();
-                                                trips[i].setDestination(newDestination);
-                                                System.out.println("Trip updated: " + trips[i]);
-                                                break;
-                                            case 2:
-                                                System.out.println("Enter new duration in days: ");
-                                                int newDuration = scanner.nextInt();
-                                                trips[i].setDurationInDays(newDuration);
-                                                System.out.println("Trip updated: " + trips[i]);
-                                                break;
-                                            case 3:
-                                                System.out.println("Enter new base price: ");
-                                                double newBasePrice = scanner.nextDouble();
-                                                trips[i].setBasePrice(newBasePrice);
-                                                System.out.println("Trip updated: " + trips[i]);
-                                                break;
-                                            default:
-                                                System.out.println("Invalid choice. No changes made.");
-                                        }
-                                        break; //exit loop after finding trip
-                                    }else {
-                                        System.out.println("Trip ID not found. Please try again.");// if trip id not found, user can retry
-                                    }
-                                }
-                                break;
-                            case 3:
-                                //delete trip; same method as client deletion, but with trips array and tripCount
-                                System.out.println("Enter trip ID to delete: ");
-                                String tripID_delete = scanner.next();
-                                boolean found_delete_trip = false;  //set bool value to false to say it isnt found
-                                for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
-                                    if (trips[i].getTripId().equals(tripID_delete)) { //if it is found
-                                        found_delete_trip = true; //change bool value to true
-                                        //delete trip by shifting all trips after it one position to the left and decrementing tripCount
-                                        for (int j = i; j < tripCount - 1; j++) {
-                                            trips[j] = trips[j + 1];
-                                        }
-                                        trips[--tripCount] = null; //set last trip to null and decrement count
-                                        System.out.println("Trip deleted successfully.");
-                                        break; //exit loop after deleting trip
-                                    }else {
-                                        System.out.println("Trip ID not found. Please try again.");// if trip id not found, user can retry
-                                    }
-                                }
-                                //delete explanation:
-                                //this is the same method used as for client deletion, but with trips array and tripCount. 
-
-                                break;
-                            case 4:
-                                //list all trips
-                                System.out.println("Listing all trips:");
-                                int tNBR = 1;
-                                for (int i = 0; i < tripCount; i++) {
-                                    //run until it is null:
-                                    if (trips[i] == null) {
-                                        break;
-                                    }else {
-                                        System.out.println("Trip #" + tNBR + trips[i]);
-                                        tNBR++; //increment trip number for display 
-                                    }
-                                }
-                                break;
-                            default:
-                                System.out.println("Invalid choice. Please try again.");
+                //trip management
+                //add a trip
+                //edit a trip
+                //delete a trip
+                //list all trips
+                System.out.println("\n--- Trip Management ---");
+                System.out.println("1) Add Trip");
+                System.out.println("2) Edit Trip");
+                System.out.println("3) Delete Trip");
+                System.out.println("4) List All Trips");
+                System.out.print("Enter your choice: ");
+                int tripChoice = scanner.nextInt();
+                switch (tripChoice) {
+                    case 1:
+                        //add trip; using package trip, using setters to set attributes
+                        //first check if trip list is full:
+                        if (tripCount >= MAX_TRIPS) {
+                            System.out.println("Trip list is full. Cannot add more trips.");
+                            break;
+                        } else {
+                            //ask user for destination, duration in days, base price, and create a new trip object with those attributes, then add to trips array and increment tripCount
+                            System.out.println("Enter trip destination: ");
+                            String destination = scanner.next();
+                            System.out.println("Enter trip duration in days: ");
+                            int durationInDays = scanner.nextInt();
+                            System.out.println("Enter trip base price: ");
+                            double basePrice = scanner.nextDouble();
+                            Trip newTrip = new Trip(destination, durationInDays, basePrice, null, null, null);
+                            trips[tripCount++] = newTrip;
+                            //check to see if it worked
+                            System.out.println("Added trip: " + trips[tripCount - 1]);
                         }
                         break;
-
-        //-------------------------------case 3: transportation management-------------------------------
+                    case 2:
+                        //edit trip; ask user which category to edit:
+                        // trip attributes (destination, duration, base price)
+                        // transportation linked to the trip
+                        // accommodation linked to the trip
+                        System.out.println("Enter trip ID to edit: ");
+                        String tripID_edit = scanner.next();
+                        //check if the trip id is in the trip database
+                        boolean found_trip = false;  //set bool value to false to say it isnt found
+                        while (!found_trip) {
+                            for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
+                                if (trips[i].getTripId().equals(tripID_edit)) { //if it is found
+                                    found_trip = true; //change bool value to true
+                                    System.out.println("Trip found: " + trips[i]);
+                                    //give user the option of which category to edit
+                                    System.out.println("Which category would you like to edit?");
+                                    System.out.println("1) Trip Attributes (Destination, Duration, Base Price)");
+                                    System.out.println("2) Transportation");
+                                    System.out.println("3) Accommodation");
+                                    int categoryChoice = scanner.nextInt();
+                                    switch (categoryChoice) {
+                                        case 1:
+                                            //give user the option of wich attribute to edit
+                                            System.out.println("Which attribute would you like to edit?");
+                                            System.out.println("1) Destination");
+                                            System.out.println("2) Duration in Days");
+                                            System.out.println("3) Base Price");
+                                            int editChoice = scanner.nextInt();
+                                            switch (editChoice) {
+                                                case 1:
+                                                    System.out.println("Enter new destination: ");
+                                                    String newDestination = scanner.next();
+                                                    trips[i].setDestination(newDestination);
+                                                    System.out.println("Trip updated: " + trips[i]);
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Enter new duration in days: ");
+                                                    int newDuration = scanner.nextInt();
+                                                    trips[i].setDurationInDays(newDuration);
+                                                    System.out.println("Trip updated: " + trips[i]);
+                                                    break;
+                                                case 3:
+                                                    System.out.println("Enter new base price: ");
+                                                    double newBasePrice = scanner.nextDouble();
+                                                    trips[i].setBasePrice(newBasePrice);
+                                                    System.out.println("Trip updated: " + trips[i]);
+                                                    break;
+                                                default:
+                                                    System.out.println("Invalid choice. No changes made.");
+                                            }
+                                            break;
+                                        case 2:
+                                            //edit transportation linked to this trip
+                                            //give user the option of which transportation attribute to edit
+                                            if (trips[i].getTransportation() == null) {
+                                                System.out.println("No transportation linked to this trip.");
+                                                break;
+                                            }
+                                            System.out.println("Transportation linked to this trip: " + trips[i].getTransportation());
+                                            System.out.println("Which attribute would you like to edit?");
+                                            System.out.println("1) Company Name");
+                                            System.out.println("2) Departure City");
+                                            System.out.println("3) Arrival City");
+                                            //show type-specific options depending on the type of transportation
+                                            if (trips[i].getTransportation() instanceof Flight) {
+                                                System.out.println("4) Ticket Price");
+                                                System.out.println("5) Luggage Allowance (kg)");
+                                            } else if (trips[i].getTransportation() instanceof Train) {
+                                                System.out.println("4) Fare");
+                                                System.out.println("5) Seat Class");
+                                            } else if (trips[i].getTransportation() instanceof Bus) {
+                                                System.out.println("4) Base Fare");
+                                                System.out.println("5) Number of Stops");
+                                            }
+                                            int transportEditChoice = scanner.nextInt();
+                                            switch (transportEditChoice) {
+                                                case 1:
+                                                    System.out.println("Enter new company name: ");
+                                                    String newCompany = scanner.next();
+                                                    trips[i].getTransportation().setCompanyName(newCompany);
+                                                    System.out.println("Transportation updated: " + trips[i].getTransportation());
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Enter new departure city: ");
+                                                    String newDeparture = scanner.next();
+                                                    trips[i].getTransportation().setDepartureCity(newDeparture);
+                                                    System.out.println("Transportation updated: " + trips[i].getTransportation());
+                                                    break;
+                                                case 3:
+                                                    System.out.println("Enter new arrival city: ");
+                                                    String newArrival = scanner.next();
+                                                    trips[i].getTransportation().setArrivalCity(newArrival);
+                                                    System.out.println("Transportation updated: " + trips[i].getTransportation());
+                                                    break;
+                                                case 4:
+                                                    //cast to specific type to access price setter
+                                                    if (trips[i].getTransportation() instanceof Flight) {
+                                                        System.out.println("Enter new ticket price: ");
+                                                        double newTicketPrice = scanner.nextDouble();
+                                                        ((Flight) trips[i].getTransportation()).setTicketPrice(newTicketPrice);
+                                                    } else if (trips[i].getTransportation() instanceof Train) {
+                                                        System.out.println("Enter new fare: ");
+                                                        double newFare = scanner.nextDouble();
+                                                        ((Train) trips[i].getTransportation()).setFare(newFare);
+                                                    } else if (trips[i].getTransportation() instanceof Bus) {
+                                                        System.out.println("Enter new base fare: ");
+                                                        double newBaseFare = scanner.nextDouble();
+                                                        ((Bus) trips[i].getTransportation()).setBaseFare(newBaseFare);
+                                                    }
+                                                    System.out.println("Transportation updated: " + trips[i].getTransportation());
+                                                    break;
+                                                case 5:
+                                                    //cast to specific type to access type-specific setter
+                                                    if (trips[i].getTransportation() instanceof Flight) {
+                                                        System.out.println("Enter new luggage allowance (kg): ");
+                                                        double newLuggage = scanner.nextDouble();
+                                                        ((Flight) trips[i].getTransportation()).setLuggageAllowanceKg(newLuggage);
+                                                    } else if (trips[i].getTransportation() instanceof Train) {
+                                                        System.out.println("Enter new seat class: ");
+                                                        String newSeatClass = scanner.next();
+                                                        ((Train) trips[i].getTransportation()).setSeatClass(newSeatClass);
+                                                    } else if (trips[i].getTransportation() instanceof Bus) {
+                                                        System.out.println("Enter new number of stops: ");
+                                                        int newStops = scanner.nextInt();
+                                                        ((Bus) trips[i].getTransportation()).setNumberOfStops(newStops);
+                                                    }
+                                                    System.out.println("Transportation updated: " + trips[i].getTransportation());
+                                                    break;
+                                                default:
+                                                    System.out.println("Invalid choice. No changes made.");
+                                            }
+                                            break;
+                                        case 3:
+                                            //edit accommodation linked to this trip
+                                            //give user the option of which accommodation attribute to edit
+                                            if (trips[i].getAccommodation() == null) {
+                                                System.out.println("No accommodation linked to this trip.");
+                                                break;
+                                            }
+                                            System.out.println("Accommodation linked to this trip: " + trips[i].getAccommodation());
+                                            System.out.println("Which attribute would you like to edit?");
+                                            System.out.println("1) Name");
+                                            System.out.println("2) Location");
+                                            System.out.println("3) Cost Per Day");
+                                            //show type-specific options depending on the type of accommodation
+                                            if (trips[i].getAccommodation() instanceof Hotel) {
+                                                System.out.println("4) Number of Stars");
+                                            } else if (trips[i].getAccommodation() instanceof Hostel) {
+                                                System.out.println("4) Number of Beds");
+                                            }
+                                            int accomEditChoice = scanner.nextInt();
+                                            switch (accomEditChoice) {
+                                                case 1:
+                                                    System.out.println("Enter new name: ");
+                                                    String newName = scanner.next();
+                                                    trips[i].getAccommodation().setName(newName);
+                                                    System.out.println("Accommodation updated: " + trips[i].getAccommodation());
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Enter new location: ");
+                                                    String newLocation = scanner.next();
+                                                    trips[i].getAccommodation().setLocation(newLocation);
+                                                    System.out.println("Accommodation updated: " + trips[i].getAccommodation());
+                                                    break;
+                                                case 3:
+                                                    System.out.println("Enter new cost per day: ");
+                                                    double newCost = scanner.nextDouble();
+                                                    trips[i].getAccommodation().setPricePerNight(newCost);
+                                                    System.out.println("Accommodation updated: " + trips[i].getAccommodation());
+                                                    break;
+                                                case 4:
+                                                    //cast to specific type to access type-specific setter
+                                                    if (trips[i].getAccommodation() instanceof Hotel) {
+                                                        System.out.println("Enter new number of stars: ");
+                                                        int newStars = scanner.nextInt();
+                                                        ((Hotel) trips[i].getAccommodation()).setStarRating(newStars);
+                                                    } else if (trips[i].getAccommodation() instanceof Hostel) {
+                                                        System.out.println("Enter new number of beds: ");
+                                                        int newBeds = scanner.nextInt();
+                                                        ((Hostel) trips[i].getAccommodation()).setNumberOfBedsPerRoom(newBeds);
+                                                    }
+                                                    System.out.println("Accommodation updated: " + trips[i].getAccommodation());
+                                                    break;
+                                                default:
+                                                    System.out.println("Invalid choice. No changes made.");
+                                            }
+                                            break;
+                                        default:
+                                            System.out.println("Invalid choice. No changes made.");
+                                    }
+                                    break; //exit loop after finding trip
+                                }
+                            }
+                            if (!found_trip) {
+                                System.out.println("Trip ID not found. Please try again."); // if trip id not found, user can retry
+                                tripID_edit = scanner.next(); //get new id from user and try again
+                            }
+                        }
+                        break;
+                    case 3:
+                        //delete trip; same method as client deletion, but with trips array and tripCount
+                        System.out.println("Enter trip ID to delete: ");
+                        String tripID_delete = scanner.next();
+                        boolean found_delete_trip = false;  //set bool value to false to say it isnt found
+                        while (!found_delete_trip) {
+                            for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
+                                if (trips[i].getTripId().equals(tripID_delete)) { //if it is found
+                                    found_delete_trip = true; //change bool value to true
+                                    //delete trip by shifting all trips after it one position to the left and decrementing tripCount
+                                    for (int j = i; j < tripCount - 1; j++) {
+                                        trips[j] = trips[j + 1];
+                                    }
+                                    trips[--tripCount] = null; //set last trip to null and decrement count
+                                    System.out.println("Trip deleted successfully.");
+                                    break; //exit loop after deleting trip
+                                }
+                            }
+                            if (!found_delete_trip) {
+                                System.out.println("Trip ID not found. Please try again.");// if trip id not found, user can retry
+                                tripID_delete = scanner.next(); //get new id from user and try again
+                            }
+                        }
+                        //delete explanation:
+                        //this is the same method used as for client deletion, but with trips array and tripCount.
+                        break;
+                    case 4:
+                        //list all trips
+                        System.out.println("Listing all trips:");
+                        int tNBR = 1;
+                        for (int i = 0; i < tripCount; i++) {
+                            //run until it is null:
+                            if (trips[i] == null) {
+                                break;
+                            } else {
+                                System.out.println("Trip #" + tNBR + trips[i]);
+                                tNBR++; //increment trip number for display
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+                break;
+                    //-------------------------------case 3: transportation management-------------------------------
                     case 3:
                         System.out.println("\n--- Transportation Management ---");
                         System.out.println("1) Add Transportation");
-                        System.out.println("2) Edit Transportation");
-                        System.out.println("3) Delete Transportation");
-                        System.out.println("4) List All Transportations");
+                        System.out.println("2) Delete Transportation");
+                        System.out.println("3) List All Transportations");
                         System.out.print("Enter your choice: ");
                         int transportChoice = scanner.nextInt();
                         switch (transportChoice) {
@@ -531,20 +703,56 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                 if (transportCount >= MAX_TRANSPORTATIONS) {
                                     System.out.println("Transportation list is full. Cannot add more transportations.");
                                     break;
-                                }else {
-                                //ask user for type (flight, train, bus), cost per day, and create a new transportation object with those attributes, then add to transportations array and increment transportCount
+                                } else {
+                                    //ask user for type (flight, train, bus), and create a new transportation object with those attributes, then add to transports array and increment transportCount
                                     System.out.println("Enter transportation type (flight, train, bus): ");
                                     String type = scanner.next();
                                     Transportation newTransport = null;
                                     switch (type.toLowerCase()) {
                                         case "flight":
-                                            newTransport = new Flight("Unknown Airline", 20.0, "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 500.0);
+                                            System.out.println("Enter airline name: ");
+                                            String airlineName = scanner.next();
+                                            System.out.println("Enter luggage allowance (kg): ");
+                                            double luggageAllowance = scanner.nextDouble();
+                                            System.out.println("Enter company name: ");
+                                            String flightCompany = scanner.next();
+                                            System.out.println("Enter departure city: ");
+                                            String flightDeparture = scanner.next();
+                                            System.out.println("Enter arrival city: ");
+                                            String flightArrival = scanner.next();
+                                            System.out.println("Enter ticket price: ");
+                                            double ticketPrice = scanner.nextDouble();
+                                            newTransport = new Flight(airlineName, luggageAllowance, flightCompany, flightDeparture, flightArrival, ticketPrice);
                                             break;
                                         case "train":
-                                            newTransport = new Train("Unknown Train Type", "Unknown Seat Class", "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 100.0);
+                                            System.out.println("Enter train type: ");
+                                            String trainType = scanner.next();
+                                            System.out.println("Enter seat class: ");
+                                            String seatClass = scanner.next();
+                                            System.out.println("Enter company name: ");
+                                            String trainCompany = scanner.next();
+                                            System.out.println("Enter departure city: ");
+                                            String trainDeparture = scanner.next();
+                                            System.out.println("Enter arrival city: ");
+                                            String trainArrival = scanner.next();
+                                            System.out.println("Enter fare ($): ");
+                                            double fare = scanner.nextDouble();
+                                            newTransport = new Train(trainType, seatClass, trainCompany, trainDeparture, trainArrival, fare);
                                             break;
                                         case "bus":
-                                            newTransport = new Bus("Unknown Bus Company", 10, "Unknown Company", "Unknown Departure City", "Unknown Arrival City", 50.0);
+                                            System.out.println("Enter bus company name: ");
+                                            String busCompany = scanner.next();
+                                            System.out.println("Enter number of stops: ");
+                                            int busStops = scanner.nextInt();
+                                            System.out.println("Enter company name: ");
+                                            String busCompanyName = scanner.next();
+                                            System.out.println("Enter departure city: ");
+                                            String busDeparture = scanner.next();
+                                            System.out.println("Enter arrival city: ");
+                                            String busArrival = scanner.next();
+                                            System.out.println("Enter base fare ($): ");
+                                            double baseFare = scanner.nextDouble();
+                                            newTransport = new Bus(busCompany, busStops, busCompanyName, busDeparture, busArrival, baseFare);
                                             break;
                                         default:
                                             System.out.println("Invalid transportation type. Please try again.");
@@ -556,11 +764,55 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                     }
                                 }
                                 break;
+                            case 2:
+                                //delete transportation; same method as client and trip deletion, but with transports array and transportCount
+                                System.out.println("Enter transportation ID to delete: ");
+                                String transportID_delete = scanner.next();
+                                boolean found_delete_transport = false; //set bool value to false to say it isnt found
+                                while (!found_delete_transport) {
+                                    for (int i = 0; i < transportCount; i++) { //set a for loop to iterate through each transportation id
+                                        if (transports[i].getTransportationId().equals(transportID_delete)) { //if it is found
+                                            found_delete_transport = true; //change bool value to true
+                                            //delete transportation by shifting all transportations after it one position to the left and decrementing transportCount
+                                            for (int j = i; j < transportCount - 1; j++) {
+                                                transports[j] = transports[j + 1];
+                                            }
+                                            transports[--transportCount] = null; //set last transportation to null and decrement count
+                                            System.out.println("Transportation deleted successfully.");
+                                            break; //exit loop after deleting transportation
+                                        }
+                                    }
+                                    if (!found_delete_transport) {
+                                        System.out.println("Transportation ID not found. Please try again."); //if id is not found, prompt user to re-enter
+                                        transportID_delete = scanner.next(); //get new id from user and try again
+                                    }
+                                }
+                                break;
+                            case 3:
+                                //list all transportations
+                                System.out.println("Listing all transportations:");
+                                int trNBR = 1;
+                                for (int i = 0; i < transportCount; i++) {
+                                    //run until it is null:
+                                    if (transports[i] == null) {
+                                        break;
+                                    } else {
+                                        System.out.println("Transportation #" + trNBR + transports[i]);
+                                        trNBR++; //increment transportation number for display
+                                    }
+                                }
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                        break;
+
+                    //-------------------------------case 4: accommodation management-------------------------------
                     case 4:
-                        //accomodation management
-                        //for accomodation : there is -Add an accommodation
-                                                      //-Remove an accommodation
-                                                        //- List accommodations by type (Hotel, Hostel)
+                        //accommodation management
+                        //for accommodation : there is -Add an accommodation
+                        //                              -Remove an accommodation
+                        //                              - List accommodations by type (Hotel, Hostel)
                         System.out.println("\n--------------- Accommodation Management ---------------");
                         System.out.println("1) Add Accommodation");
                         System.out.println("2) Remove Accommodation");
@@ -574,19 +826,27 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                 if (accomCount >= MAX_ACCOMMODATIONS) {
                                     System.out.println("Accommodation list is full. Cannot add more accommodations.");
                                     break;
-                                }else {
-                                //ask user for type (hotel, hostel), cost per day, and create a new accommodation object with those attributes, then add to accommodations array and increment accomCount
+                                } else {
+                                    //ask user for type (hotel, hostel), name, location, cost per day, and create a new accommodation object with those attributes, then add to accommodations array and increment accomCount
                                     System.out.println("Enter accommodation type (hotel, hostel): ");
                                     String type = scanner.next();
-                                    System.out.println("Enter accommodation cost per day: ");
-                                    double costPerDay = scanner.nextDouble();
+                                    System.out.println("Enter accommodation name: ");
+                                    String accomName = scanner.next();
+                                    System.out.println("Enter accommodation location: ");
+                                    String accomLocation = scanner.next();
+                                    System.out.println("Enter cost per day: ");
+                                    double accomCost = scanner.nextDouble();
                                     Accommodation newAccom = null;
                                     switch (type.toLowerCase()) {
                                         case "hotel":
-                                            newAccom = new Hotel("Unknown Hotel Name", "Unknown Location", 150.5, 10);
+                                            System.out.println("Enter number of stars (1-5): ");
+                                            int stars = scanner.nextInt();
+                                            newAccom = new Hotel(accomName, accomLocation, accomCost, stars);
                                             break;
                                         case "hostel":
-                                            newAccom = new Hostel("Unknown Hostel Name", "Unknown Location", 50.0, 4);
+                                            System.out.println("Enter number of beds: ");
+                                            int beds = scanner.nextInt();
+                                            newAccom = new Hostel(accomName, accomLocation, accomCost, beds);
                                             break;
                                         default:
                                             System.out.println("Invalid accommodation type. Please try again.");
@@ -600,24 +860,28 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                 }
                             case 2:
                                 //remove accommodation; same method as client deletion, but with accommodations array and accomCount
-                                System.out.println("Enter accommodation ID to delete: ");  
+                                System.out.println("Enter accommodation ID to delete: ");
                                 String accomID_delete = scanner.next();
                                 boolean found_delete_accom = false;  //set bool value to false to say it isnt found
-                                for (int i = 0; i < accomCount; i++) { //set a for loop to iterate through each accommodation id
-                                    if (accommodations[i].getAccommodationId().equals(accomID_delete)) { //if it is found
-                                        found_delete_accom = true; //change bool value to true
-                                        //delete accommodation by shifting all accommodations after it one position to the left and decrementing accomCount
-                                        for (int j = i; j < accomCount - 1; j++) {
-                                            accommodations[j] = accommodations[j + 1];
+                                while (!found_delete_accom) {
+                                    for (int i = 0; i < accomCount; i++) { //set a for loop to iterate through each accommodation id
+                                        if (accommodations[i].getAccommodationId().equals(accomID_delete)) { //if it is found
+                                            found_delete_accom = true; //change bool value to true
+                                            //delete accommodation by shifting all accommodations after it one position to the left and decrementing accomCount
+                                            for (int j = i; j < accomCount - 1; j++) {
+                                                accommodations[j] = accommodations[j + 1];
+                                            }
+                                            accommodations[--accomCount] = null; //set last accommodation to null and decrement count
+                                            System.out.println("Accommodation deleted successfully.");
+                                            break; //exit loop after deleting accommodation
                                         }
-                                        accommodations[--accomCount] = null; //set last accommodation to null and decrement count
-                                        System.out.println("Accommodation deleted successfully.");
-                                        break; //exit loop after deleting accommodation
-                                    }else {
+                                    }
+                                    if (!found_delete_accom) {
                                         System.out.println("Accommodation ID not found. Please try again.");// if accommodation id not found, user can retry
-                            }
-                        }
-                            break;
+                                        accomID_delete = scanner.next(); //get new id from user and try again
+                                    }
+                                }
+                                break;
                             case 3:
                                 //list accommodations by type (hotel, hostel)
                                 System.out.println("Enter accommodation type to list (hotel, hostel): ");
@@ -627,7 +891,7 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                 for (int i = 0; i < accomCount; i++) {
                                     if (accommodations[i] == null) {
                                         break;
-                                    }else {
+                                    } else {
                                         if (accomType.equalsIgnoreCase("hotel") && accommodations[i] instanceof Hotel) {
                                             System.out.println("Accommodation #" + aNBR + accommodations[i]);
                                             aNBR++;
@@ -637,8 +901,11 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                         }
                                     }
                                 }
-                            }
-                            break;
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                        break;
                     case 5:
                                 // 5. Additional Operations
                                 //-Display the most expensive trip
@@ -671,14 +938,18 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                         System.out.println("Enter trip ID to calculate total cost: ");
                                         String tripID_cost = scanner.next();
                                         boolean found_trip_cost = false;  //set bool value to false to say it isnt found
-                                        for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
-                                            if (trips[i].getTripId().equals(tripID_cost)) { //if it is found
-                                                found_trip_cost = true; //change bool value to true
-                                                double totalCost = trips[i].calculateTotalCost();
-                                                System.out.println("Total cost of trip " + trips[i].getTripId() + ": $" + totalCost);
-                                                break; //exit loop after finding trip
-                                            }else {
+                                        while (!found_trip_cost) {
+                                            for (int i = 0; i < tripCount; i++) { //set a for loop to iterate through each trip id
+                                                if (trips[i].getTripId().equals(tripID_cost)) { //if it is found
+                                                    found_trip_cost = true; //change bool value to true
+                                                    double totalCost = trips[i].calculateTotalCost();
+                                                    System.out.println("Total cost of trip " + trips[i].getTripId() + ": $" + totalCost);
+                                                    break; //exit loop after finding trip
+                                                }
+                                            }
+                                            if (!found_trip_cost) {
                                                 System.out.println("Trip ID not found. Please try again.");// if trip id not found, user can retry
+                                                tripID_cost = scanner.next(); //get new id from user and try again
                                             }
                                         }
                                         break;
@@ -732,13 +1003,7 @@ System.out.println("\n=== Predefined Scenario Complete ===\n");
                                         break;
                     default:    
                         System.out.println("Invalid choice. Please try again.");                                
-
-
-        
-    
 }
-
         }
     }
-}
 }
