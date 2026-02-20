@@ -17,9 +17,25 @@ public class Bus extends Transportation {
         this.busCompany = busCompany;
         this.numberOfStops = numberOfStops;
         this.baseFare = BaseFare;
+    }
+    //copy constructor
+    public Bus(Bus other) {
+        super(other);
+        this.busCompany = other.busCompany;
+        this.numberOfStops = other.numberOfStops;
+        this.baseFare = other.baseFare;
+    }
+    //getter and setter for busCompany and numberOfStops and fare
+    public String getBusCompany() {return busCompany;}
+    public void setBusCompany(String busCompany) {this.busCompany = busCompany;}
+    public int getNumberOfStops() {return numberOfStops;}
+    public void setNumberOfStops(int numberOfStops) {this.numberOfStops = numberOfStops;}
+    public double getBaseFare() {return baseFare;}
+    public void setBaseFare(double baseFare) {this.baseFare = baseFare;}
+
 
         
-    }
+    
     @Override
     public double calculateCost(int numberOfDays) {
         return 30.0 * numberOfDays; // Example cost calculation

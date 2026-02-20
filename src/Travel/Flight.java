@@ -18,6 +18,23 @@ public class Flight extends Transportation {
         this.luggageAllowanceKg = luggageAllowanceKg;
         this.ticketPrice = TicketPrice; // Base ticket price, can be modified as needed
     }
+
+    //copy constructor
+    public Flight(Flight other) {
+        super(other); // Call the copy constructor of the superclass
+        this.airlineName = other.airlineName;
+        this.luggageAllowanceKg = other.luggageAllowanceKg;
+        this.ticketPrice = other.ticketPrice;
+    }
+    //getter and setter for airlineName and luggageAllowanceKg
+    public String getAirlineName() {return airlineName;}
+    public void setAirlineName(String airlineName) {this.airlineName = airlineName;}
+    public double getLuggageAllowanceKg() {return luggageAllowanceKg;}
+    public void setLuggageAllowanceKg(double luggageAllowanceKg) {this.luggageAllowanceKg = luggageAllowanceKg;}
+    public double getTicketPrice() {return ticketPrice;}
+    public void setTicketPrice(double ticketPrice) {this.ticketPrice = ticketPrice;}
+    
+
     @Override
     public double calculateCost(int numberOfDays) {
         double baggageFee = (luggageAllowanceKg > 23) ? 40.0 : 0.0;

@@ -17,6 +17,21 @@ public class Train extends Transportation {
         this.seatClass = seatClass;
         this.fare = Fare;
     }
+    //copy constructor
+    public Train(Train other) {
+        super(other);
+        this.trainType = other.trainType;
+        this.seatClass = other.seatClass;
+        this.fare = other.fare;
+    }
+    //getter and setter for trainType, seatClass, and fare
+    public String getTrainType() {return trainType;}
+    public void setTrainType(String trainType) {this.trainType = trainType;}
+    public String getSeatClass() {return seatClass;}
+    public void setSeatClass(String seatClass) {this.seatClass = seatClass;}
+    public double getFare() {return fare;}
+    public void setFare(double fare) {this.fare = fare;}
+    
     @Override
     public double calculateCost(int numberOfDays) {
         double multiplier = seatClass.equalsIgnoreCase("Business") ? 1.25 : 1.0;
