@@ -1,3 +1,9 @@
+//----------------------------------------------
+// Assignment 1
+// Question: package : Travel, Class: Accommodation
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
 package Travel;
 
 public abstract class Accommodation {

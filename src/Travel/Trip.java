@@ -1,3 +1,9 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Travel, Class: Trip
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
 package Travel;
 import Client.Client;
 
@@ -48,8 +54,8 @@ public class Trip {
         this.basePrice = other.basePrice;
         
         this.client = other.client;
-        this.transportation = other.transportation;
-        this.accommodation = other.accommodation;
+        this.transportation = (other.transportation != null) ? other.transportation.copy() : null;
+        this.accommodation = (other.accommodation != null) ? other.accommodation.copy() : null;
     }
     //getters
     public String getTripId() {return tripID;}

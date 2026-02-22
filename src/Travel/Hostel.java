@@ -1,3 +1,9 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Travel, Class: Hostel
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
 package Travel;
 
 public class Hostel extends Accommodation {

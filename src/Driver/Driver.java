@@ -1,3 +1,10 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Driver, Class: Driver
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
+
 package Driver;
 import java.util.Scanner;
 
@@ -59,13 +66,17 @@ public class Driver {
     
         //main menu display
         private static void printMainMenu() {
-            System.out.println("\n====== MAIN MENU ======");
-            System.out.println("1) Client Management");
-            System.out.println("2) Trip Management");
-            System.out.println("3) Transportation Management");
-            System.out.println("4) Accommodation Management");
-            System.out.println("5) Additional Operations");
-            System.out.println("0) Exit");
+            //welcome message: 
+            System.out.println("Welcome to the Smart Travel Planner! This code was written by Benjamin Senay. The main goal of this program is to allow users to create and manage travel plans, including clients, trips, transportation, and accommodations.  You can also run a predefined scenario that demonstrates the functionality of the program and generates some visualizations based on the created trips. Please choose an option from the menu below to get started.");
+            System.out.println("\n+=+=+=+=+=+=+=+=+ MAIN MENU +=+=+=+=+=+=+=+=+");
+            System.out.println("            (1) Client Management");
+            System.out.println("            (2) Trip Management");
+            System.out.println("            (3) Transportation Management");
+            System.out.println("            (4) Accommodation Management");
+            System.out.println("            (5) Additional Operations");
+            System.out.println("            (6) Show visualizations");
+            System.out.println("            (0) Exit");
+            System.out.println("+=+=+=+=+=+=+=+=++=+=+=+=+=+=+=+=++=+=+=+=+=+=+");
         }
         //run predefined scenario
         private static void runPredefinedScenario(Client[] clients, Trip[] trips,
@@ -91,9 +102,9 @@ public class Driver {
             // =========================
             // 1) CREATE CLIENTS (3)
             // =========================
-            Client c1 = new Client("Benjamin", "Senay", "benjamin@example.com");
-            Client c2 = new Client("Alex", "Martin", "alex@example.com");
-            Client c3 = new Client("Sara", "Lopez", "sara@example.com");
+            Client c1 = new Client("John", "Pork", "jpork@gmail.com");
+            Client c2 = new Client("Daquavious", "Pork", "dPork@gmail.com");
+            Client c3 = new Client("TUNGTUNGTUNG", "sahur", "Tsahur@gmail.com");
 
             clients[ClientCount++] = c1;
             clients[ClientCount++] = c2;
@@ -216,26 +227,64 @@ public class Driver {
             System.out.println("\nCharts not generated (library/path issue): " + e.getMessage());
                 }
             System.out.println("\n=== Predefined Scenario Complete ===\n");
+
+            
+            //deep copy demonstration: create a deep copy of the transportation array, modify the copy, and show that the original is unchanged
+            System.out.println("\n--- Deep Copy Demonstration ---");
+            Transportation[] transportCopy = copyTransportationArray(transportations, TransportationCount);
+
+            // Modify the copy
+            ((Flight) transportCopy[0]).setAirlineName("MODIFIED AIRLINE");
+
+            // Show both arrays
+            System.out.println("Original [0]: " + transportations[0]);
+            System.out.println("Copy [0]:     " + transportCopy[0]);
+            System.out.println("(Original is unchanged — deep copy confirmed)");
+
+            //equals test
+            System.out.println("\n--- equals() Tests ---");
+            // Case 1: Different classes
+            System.out.println("Flight vs Train (different class): " + f1.equals(tr1)); // false
+
+            // Case 2: Same class, different attributes
+            Flight f1copy_diff = new Flight("Delta", 20.0, "Delta", "NYC", "LA", 800);
+            System.out.println("Two flights, different attributes: " + f1.equals(f1copy_diff)); // false
+
+            // Case 3: Same class, identical attributes
+            Flight f1copy_same = new Flight("Air Canada", 35.0, "Air Canada", "Montreal", "Paris", 1200);
+            System.out.println("Two flights, identical attributes: " + f1.equals(f1copy_same)); // true
+
+
         }
 
         //The program must also include a method that creates and returns a deep copy of an array of transportation objects:
         //use the copy method in subclasses
-        public static Transportation[] deepCopyTransportationArray(Transportation[] original, int count) {     
+        
+        //deep vs shallow copy; a shallow copy is like getting a folder with documents and theyre the same as someone elses; if they edit their document, then mine gets edited too
+        //deep; its the same documents, but if one edits their documents, then the others wont get edited.
+
+        public static Transportation[] copyTransportationArray(Transportation[] original) {
+            return copyTransportationArray(original, original.length);
+        }
+
+        // Your existing method (keep this too)
+        public static Transportation[] copyTransportationArray(Transportation[] original, int count) {
             Transportation[] copy = new Transportation[original.length];
             for (int i = 0; i < count; i++) {
                 if (original[i] != null) {
-                    copy[i] = original[i].copy(); //use the copy method defined in transportation and its subclasses
+                    copy[i] = original[i].copy();
                 }
             }
             return copy;
-        }       
+        }
+        
         
         //----------------------------------------------
         //run menu
         //----------------------------------------------
         public static void runMenu(Scanner s, Client[] clients, Trip[] trips, Transportation[] transports, Accommodation[] accommodations) {
             Scanner scanner = s;
-            //reset our vars
+            //set our vars //seperate from predefined scenario
             int clientCount = 0;
             int tripCount = 0;
             int transportCount = 0;
@@ -249,6 +298,14 @@ public class Driver {
                 int choice = scanner.nextInt();
                 //begin switch statement for menu options
                 switch (choice) {
+                    //case 0: program terminates
+                    case 0:
+                        System.out.println("Program terminated with succes. Goodbye!!");
+                        menuloop = false;
+                        break;
+
+
+
                     //first case: client management:
                         //add a client
                         //edit a clien
@@ -356,7 +413,7 @@ public class Driver {
                                         found_delete = true; //change bool value to true
 
                                         //delete client by shifting all clients after it one position to the left and decrementing clientCount
-                                        for (int j = i; j < ClientCount - 1; j++) {
+                                        for (int j = i; j < clientCount - 1; j++) {
                                         clients[j] = clients[j + 1];
                                         }
 
@@ -405,6 +462,7 @@ public class Driver {
                                         cNBR++; //increment client number for display 
                                     }
                                 }
+                                break;
                             default:
                                 System.out.println("Invalid choice. Please try again.");
                         }
@@ -422,6 +480,7 @@ public class Driver {
                 System.out.println("2) Edit Trip");
                 System.out.println("3) Delete Trip");
                 System.out.println("4) List All Trips");
+                System.out.println("5) List trips for a specific client");
                 System.out.print("Enter your choice: ");
                 int tripChoice = scanner.nextInt();
                 switch (tripChoice) {
@@ -684,6 +743,35 @@ public class Driver {
                             }
                         }
                         break;
+                    case 5:
+                        // List all trips for a specific client
+                        System.out.println("Enter client ID to list trips for: ");
+                        String searchClientID = scanner.next();
+                        boolean clientExists = false;
+                        // First verify the client exists
+                        for (int i = 0; i < clientCount; i++) {
+                            if (clients[i] != null && clients[i].getClientID().equals(searchClientID)) {
+                                clientExists = true;
+                                break;
+                            }
+                        }
+                        if (!clientExists) {
+                            System.out.println("No client found with ID: " + searchClientID);
+                        } else {
+                            System.out.println("Trips for client " + searchClientID + ":");
+                            int clientTripNBR = 1;
+                            boolean hasTrips = false;
+                            for (int i = 0; i < tripCount; i++) {
+                                if (trips[i] != null && trips[i].getClient() != null
+                                        && trips[i].getClient().getClientID().equals(searchClientID)) {
+                                    System.out.println("Trip #" + clientTripNBR + ": " + trips[i]);
+                                    clientTripNBR++;
+                                    hasTrips = true;
+                                }
+                            }
+                            if (!hasTrips) System.out.println("No trips found for this client.");
+                        }
+                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
@@ -789,18 +877,25 @@ public class Driver {
                                 }
                                 break;
                             case 3:
-                                //list all transportations
-                                System.out.println("Listing all transportations:");
+                                // List transportations by type
+                                System.out.println("Enter transportation type to list (flight, train, bus): ");
+                                String transportType = scanner.next();
+                                System.out.println("Listing all " + transportType + "s:");
                                 int trNBR = 1;
                                 for (int i = 0; i < transportCount; i++) {
-                                    //run until it is null:
-                                    if (transports[i] == null) {
-                                        break;
-                                    } else {
-                                        System.out.println("Transportation #" + trNBR + transports[i]);
-                                        trNBR++; //increment transportation number for display
+                                    if (transports[i] == null) break;
+                                    if (transportType.equalsIgnoreCase("flight") && transports[i] instanceof Flight) {
+                                        System.out.println("Transportation #" + trNBR + ": " + transports[i]);
+                                        trNBR++;
+                                    } else if (transportType.equalsIgnoreCase("train") && transports[i] instanceof Train) {
+                                        System.out.println("Transportation #" + trNBR + ": " + transports[i]);
+                                        trNBR++;
+                                    } else if (transportType.equalsIgnoreCase("bus") && transports[i] instanceof Bus) {
+                                        System.out.println("Transportation #" + trNBR + ": " + transports[i]);
+                                        trNBR++;
                                     }
                                 }
+                                if (trNBR == 1) System.out.println("No " + transportType + "s found.");
                                 break;
                             default:
                                 System.out.println("Invalid choice. Please try again.");
@@ -955,18 +1050,24 @@ public class Driver {
                                         break;
                                     case 3:
                                         //create a deep copy of the transportation array
-                                        //use the deepCopyTransportationArray method defined earlier, passing in the transports array and transportCount
-                                        Transportation[] transportCopy = deepCopyTransportationArray(transports, transportCount);
+                                        //use the copyTransportationArray method defined earlier, passing in the transports array and transportCount
+                                        Transportation[] transportCopy = copyTransportationArray(transports, transportCount);
 
                                         System.out.println("Deep copy of transportation array created successfully.");
                                         break;
                                     case 4:
-                                        //create a deep copy of the accommodation array
-                                        //we will create a similar method to deepCopyTransportationArray, but for accommodations, using the copy method defined in accommodation and its subclasses
                                         Accommodation[] accomCopy = new Accommodation[accommodations.length];
-                                        break;
-                                    }
-                                    break;
+                                        for (int i = 0; i < accomCount; i++) {
+                                            if (accommodations[i] != null) {
+                                                accomCopy[i] = accommodations[i].copy();
+                                            }
+                                        }
+                                            System.out.println("Deep copy of accommodation array created successfully.");
+                                            break;
+                                        default:
+                                            System.out.println("Invalid choice. Please try again.");
+                                }
+                                break;
                                     //Generate Visualization (Optional but recommended)
                                         //-bar chart (Trip Cost)
                                         //-pie chart (Trips per destination)  Line chart (Duration over time)
@@ -1003,7 +1104,7 @@ public class Driver {
                                         break;
                     default:    
                         System.out.println("Invalid choice. Please try again.");                                
-}
+            }
         }
     }
 }

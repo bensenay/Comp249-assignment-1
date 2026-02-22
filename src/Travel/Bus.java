@@ -1,3 +1,10 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Travel, Class: Bus
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
+
 package Travel;
 
 public class Bus extends Transportation {
@@ -38,7 +45,7 @@ public class Bus extends Transportation {
     
     @Override
     public double calculateCost(int numberOfDays) {
-        return 30.0 * numberOfDays; // Example cost calculation
+        return baseFare * numberOfDays; 
     }
     //equals method; compares all fields except transportationId,
     // returns false if:

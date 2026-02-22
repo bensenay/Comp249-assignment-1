@@ -1,3 +1,9 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Travel, Class: Flight
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
 package Travel;
 
 public class Flight extends Transportation {
@@ -6,7 +12,7 @@ public class Flight extends Transportation {
     private double ticketPrice; 
     //default constructor
     public Flight() {
-        
+        super(); //call the default constructor of the superclass
         this.airlineName = "Unknown Airline";
         this.luggageAllowanceKg = 20.0; // Default luggage allowance
         this.ticketPrice = 200.0; // Default ticket price

@@ -1,3 +1,10 @@
+//----------------------------------------------
+// Assignment 1
+// Question: Package : Client, Class: Client
+// Written by: Benjamin Senay || 40341705 
+//----------------------------------------------
+
+
 package Client;
 
 public class Client {
@@ -55,8 +62,7 @@ public boolean equals(Object obj) {
         return false;
     }
     Client other = (Client) obj;
-    return this.clientID.equals(other.clientID) &&
-           this.firstname.equals(other.firstname) &&
+    return this.firstname.equals(other.firstname) &&
            this.lastname.equals(other.lastname) &&
            this.email.equals(other.email);
     }
